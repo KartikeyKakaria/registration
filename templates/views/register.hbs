@@ -1,12 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/register.css">
+    <link rel="stylesheet" href="css/index.css">
 </head>
+
 <body>
-    
+    {{>navbar}}
+    <h1 id="title">User Registration Forum</h1>
+
+    <div id = "form">
+        <form action="/register" metho="POST">
+        <p>Name:</p><input name ="name" type="text" id="name"><br><br>
+        <p>Email:</p><input name="email" type="text" id="email"><br><br>
+        <p>Number:</p><input name="number" type="number" id="number"><br><br>
+        <p>Address:</p><input name="address" type="text" id="address"><br><br>
+        <p>Age:</p><input name="age" type="number" id="age"><br><br>
+        <p>Password:</p><input name="password" type="text" id="password"><br><br>
+        <button type="submit" id="submit">Submit</button>
+        </form>
+    </div>
 </body>
+
 </html>
