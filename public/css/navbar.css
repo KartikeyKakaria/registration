@@ -1,0 +1,28 @@
+header h1{
+    cursor:pointer;
+    color:white;
+    padding:10px;
+    border-radius:20px;
+    background-color:cyan;
+}
+header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:30px 10px;
+    background-color:black;
+}
+header nav ul{
+    text-decoration:none;
+}
+header nav ul li{
+    font-size:20px;
+    color:white;
+    display:inline-block;
+    padding:10px 20px;
+    cursor:pointer;
+}
+header h1:hover{
+    background-color:blue;
+    color:cyan;
+}
