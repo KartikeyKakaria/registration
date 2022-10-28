@@ -1,5 +1,6 @@
 const express = require('express');
-const path = require('path')
+const path = require('path');
+const crud = require("./crud")
 const hbs = require('hbs');
 const app = express();
 const port = process.env.PORT || 8000;
@@ -23,8 +24,10 @@ app.get("/register", (req, res) => {
     res.render("register")
 })
 app.get("/login", (req, res) => {
-    res.send('hi')
+    res.render("login")
 })
+
+//register user
 app.post("/register", async(req, res) => {
     try {
         const password = req.body.password;
@@ -47,6 +50,24 @@ app.post("/register", async(req, res) => {
     } catch (err) {
         console.log(err)
         res.status(400).send(err)
+    }
+})
+
+//login user
+app.post("/login", async(req, res) => {
+    try {
+        const email = req.body.email;
+        const password = req.body.password;
+        const result = await User.findOne({ email: email });
+        if (result === undefined) {
+            res.status(400).send("invalid credentials");
+        } else if (result.password === password) {
+            res.status(200).send("valid yay")
+        } else {
+            res.status(400).send("invalid credentials");
+        }
+    } catch (error) {
+        res.status(400).send(error)
     }
 })
 
