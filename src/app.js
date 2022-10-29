@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const bcryptjs = require('bcryptjs')
 const crud = require("./crud")
 const hbs = require('hbs');
 const app = express();
