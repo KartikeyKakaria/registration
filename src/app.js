@@ -1,8 +1,8 @@
 const express = require('express');
+const hbs = require('hbs');
 const path = require('path');
 const bcryptjs = require('bcryptjs')
 const crud = require("./crud")
-const hbs = require('hbs');
 const app = express();
 const port = process.env.PORT || 8000;
 const staticPath = path.join(__dirname, '../public');
@@ -42,6 +42,9 @@ app.post("/register", async(req, res) => {
                 age: req.body.age,
                 password: password,
             });
+
+
+
             const result = await userdata.save();
             console.log(result)
             res.send(result);
