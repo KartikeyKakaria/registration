@@ -1,7 +1,7 @@
 const express = require('express');
 const hbs = require('hbs');
 const path = require('path');
-const bcryptjs = require('bcryptjs')
+const bcrypt = require('bcryptjs')
 const crud = require("./crud")
 const app = express();
 const port = process.env.PORT || 8000;
@@ -63,15 +63,15 @@ app.post("/login", async(req, res) => {
         const email = req.body.email;
         const password = req.body.password;
         const result = await User.findOne({ email: email });
-        if (result === undefined) {
-            res.status(400).send("invalid credentials");
-        } else if (result.password === password) {
+        const isMatch = await bcrypt.compare(password, result.password)
+        if (isMatch) {
             res.status(200).send("valid yay")
         } else {
             res.status(400).send("invalid credentials");
+
         }
     } catch (error) {
-        res.status(400).send(error)
+        res.status(400).send("invalid login credentials")
     }
 })
 
