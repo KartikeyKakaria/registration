@@ -1,4 +1,4 @@
-require("dotenv").config();
+require("dotenv").config(); //.env configurtaion
 //essential variables for code
 const express = require('express');
 const hbs = require('hbs');
