@@ -4,7 +4,7 @@ const hbs = require('hbs');
 const path = require('path');
 const bcrypt = require('bcryptjs')
 const jwt = require("jsonwebtoken")
-// const crud = require("./crud")
+    // const crud = require("./crud")
 const app = express();
 const port = process.env.PORT || 8000;
 const User = require("./models/users")
@@ -50,7 +50,7 @@ app.post("/register", async(req, res) => {
             });
 
             const token = await userdata.generateAuthToken()
-            console.log('the token is'+token)
+            console.log('the token is' + token)
             const result = await userdata.save();
             console.log(result)
             res.send(result);
@@ -69,7 +69,11 @@ app.post("/login", async(req, res) => {
         const email = req.body.email;
         const password = req.body.password;
         const result = await User.findOne({ email: email });
-        const isMatch = await bcrypt.compare(password, result.password)
+        const isMatch = await bcrypt.compare(password, result.password);
+
+        const token = await result.generateAuthToken()
+        console.log(token)
+
         if (isMatch) {
             res.status(200).send("valid yay")
         } else {
