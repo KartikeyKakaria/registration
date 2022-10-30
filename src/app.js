@@ -4,11 +4,13 @@ const express = require('express');
 const hbs = require('hbs');
 const path = require('path');
 const bcrypt = require('bcryptjs')
+const cookieParser = require('cookie-parser');
+const User = require("./models/users")
+const auth = require("./middleware/auth")
 
 // const crud = require("./crud")
 const app = express();
 const port = process.env.PORT || 8000;
-const User = require("./models/users")
 
 //paths for serving files
 const staticPath = path.join(__dirname, '../public');
@@ -18,6 +20,7 @@ require("./db/conn");
 
 //serving files
 app.use(express.json())
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }))
 app.use(express.static(staticPath));
 app.set("view engine", "hbs");
@@ -34,8 +37,10 @@ app.get("/register", (req, res) => {
 app.get("/login", (req, res) => {
     res.render("login")
 })
-
-//register user
+app.get("/user", auth, (req, res) => {
+        res.render("user")
+    })
+    //register user
 app.post("/register", async(req, res) => {
     try {
         const password = req.body.password;
@@ -80,11 +85,13 @@ app.post("/login", async(req, res) => {
         const isMatch = await bcrypt.compare(password, result.password);
 
         const token = await result.generateAuthToken()
-        console.log(token)
+            // console.log(token)
 
         res.cookie("jwt", result.tokens[0].token, {
             expires: new Date(Date.now() + 2628002880),
-        })
+        });
+
+        console.log("The cookie is " + req.cookies.jwt)
 
         if (isMatch) {
             res.status(200).send("valid yay")
