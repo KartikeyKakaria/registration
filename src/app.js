@@ -1,10 +1,11 @@
+require("dotenv").config();
 //essential variables for code
 const express = require('express');
 const hbs = require('hbs');
 const path = require('path');
 const bcrypt = require('bcryptjs')
-const jwt = require("jsonwebtoken")
-    // const crud = require("./crud")
+
+// const crud = require("./crud")
 const app = express();
 const port = process.env.PORT || 8000;
 const User = require("./models/users")

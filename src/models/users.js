@@ -28,8 +28,8 @@ const User = new mongoose.Schema({
         type: String,
         required: true,
     },
-    tokens:[{
-        token:{
+    tokens: [{
+        token: {
             type: String,
             required: true,
         }
@@ -37,15 +37,15 @@ const User = new mongoose.Schema({
 })
 
 //generating tokens
-User.methods.generateAuthToken = async function(){
+User.methods.generateAuthToken = async function() {
     try {
-        const token = jwt.sign({_id:this._id.toString()},"mynameiskartikeykamalkakariasonofkakarias")
-        this.tokens = this.tokens.concat({token:token})
+        const token = jwt.sign({ _id: this._id.toString() }, process.env.SECRET_KEY)
+        this.tokens = this.tokens.concat({ token: token })
         await this.save();
         return token;
     } catch (error) {
-        res.send("some bs error"+error)   
-        console.log("some bs error"+error)   
+        res.send("some bs error" + error)
+        console.log("some bs error" + error)
     }
 }
 
