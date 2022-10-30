@@ -50,8 +50,8 @@ app.post("/register", async(req, res) => {
                 password: password,
             });
 
-            const token = await userdata.generateAuthToken()
-                // console.log('the token is' + token)
+            const token = await userdata.generateAuthToken();
+            // console.log('the token is' + token)
 
             res.cookie("jwt", token, {
                 expires: new Date(Date.now() + 2628002880),
@@ -81,6 +81,10 @@ app.post("/login", async(req, res) => {
 
         const token = await result.generateAuthToken()
         console.log(token)
+
+        res.cookie("jwt", result.tokens[0].token, {
+            expires: new Date(Date.now() + 2628002880),
+        })
 
         if (isMatch) {
             res.status(200).send("valid yay")
