@@ -120,6 +120,11 @@ app.post("/login", async(req, res) => {
     }
 })
 
+//telling the server that cookie exists or not
+app.post("/isCookieThere", async(req, res) => {
+    res.send(req.cookies.jwt)
+})
+
 //listening to the server
 app.listen(port, () => {
     console.log("listening at port " + port)
