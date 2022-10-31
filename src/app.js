@@ -38,9 +38,25 @@ app.get("/login", (req, res) => {
     res.render("login")
 })
 app.get("/user", auth, (req, res) => {
-        res.render("user")
-    })
-    //register user
+    res.render("user")
+})
+
+//logout user
+app.get("/logout", auth, async(req, res) => {
+    try {
+        res.clearCookie("jwt")
+        req.user.tokens = req.user.tokens.filter((element) => {
+            return element.token !== req.token
+        })
+        console.log("logout successfully")
+        await req.user.save();
+        res.render("login")
+    } catch (error) {
+        res.status(500).send(error)
+    }
+})
+
+//register user
 app.post("/register", async(req, res) => {
     try {
         const password = req.body.password;

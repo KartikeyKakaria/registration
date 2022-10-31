@@ -8,6 +8,9 @@ const auth = async(req, res, next) => {
         // console.log(verifyUser);
         const user = await User.findOne({ _id: verifyUser._id })
         console.log(user.name);
+        req.token = token;
+        req.user = user;
+
         next();
     } catch (error) {
         res.status(400).send(error)
