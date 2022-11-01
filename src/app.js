@@ -40,6 +40,9 @@ app.get("/login", (req, res) => {
 app.get("/user", auth, (req, res) => {
     res.render("user")
 })
+app.post("/user", auth, (req, res) => {
+    res.send(req.user);
+})
 
 //logout user
 app.get("/logout", auth, async(req, res) => {
@@ -53,6 +56,7 @@ app.get("/logout", auth, async(req, res) => {
         res.render("login")
     } catch (error) {
         res.status(500).send(error)
+
     }
 })
 
@@ -100,16 +104,16 @@ app.post("/login", async(req, res) => {
         const result = await User.findOne({ email: email });
         const isMatch = await bcrypt.compare(password, result.password);
 
-        const token = await result.generateAuthToken()
-            // console.log(token)
+        // console.log(token)
 
-        res.cookie("jwt", result.tokens[0].token, {
-            expires: new Date(Date.now() + 2628002880),
-        });
-
-        console.log("The cookie is " + req.cookies.jwt)
 
         if (isMatch) {
+            const token = await result.generateAuthToken()
+            res.cookie("jwt", result.tokens[0].token, {
+                expires: new Date(Date.now() + 2628002880),
+            });
+
+            console.log("The cookie is " + req.cookies.jwt)
             res.status(200).send("valid yay")
         } else {
             res.status(400).send("invalid credentials");
@@ -118,6 +122,11 @@ app.post("/login", async(req, res) => {
     } catch (error) {
         res.status(400).send("invalid login credentials")
     }
+})
+
+//telling the server that cookie exists or not
+app.post("/isCookieThere", async(req, res) => {
+    res.send(req.cookies.jwt)
 })
 
 //listening to the server
