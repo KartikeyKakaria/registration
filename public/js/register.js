@@ -30,7 +30,9 @@ window.onload = async() => {
             }
             fetch("/register", params)
                 .then(response => response.text())
-                .then(data => console.log(data))
+                .then((data) => {
+                    console.log(data)
+                })
                 .catch(err => console.log(err))
                 // console.log(data)
         })

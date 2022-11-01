@@ -20,7 +20,13 @@ window.onload = async() => {
             }
             fetch("/login", params)
                 .then(rep => rep.text())
-                .then(data => console.log(data))
+                .then((data) => {
+                    if (data == "valid yay") {
+                        window.location.href = "/user";
+                    } else {
+                        alert(data)
+                    }
+                })
                 .catch(err => console.log(err))
         })
 
