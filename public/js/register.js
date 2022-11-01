@@ -31,7 +31,15 @@ window.onload = async() => {
             fetch("/register", params)
                 .then(response => response.text())
                 .then((data) => {
-                    console.log(data)
+                    try {
+                        if (JSON.parse(data).name == undefined) {
+                            alert("please enter valid email and phone number")
+                        } else {
+                            window.location.href = "/user"
+                        }
+                    } catch (e) {
+                        alert("passwords dont match")
+                    }
                 })
                 .catch(err => console.log(err))
                 // console.log(data)
