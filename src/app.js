@@ -40,6 +40,9 @@ app.get("/login", (req, res) => {
 app.get("/user", auth, (req, res) => {
     res.render("user")
 })
+app.post("/user", auth, (req, res) => {
+    res.send(req.user);
+})
 
 //logout user
 app.get("/logout", auth, async(req, res) => {
@@ -53,6 +56,7 @@ app.get("/logout", auth, async(req, res) => {
         res.render("login")
     } catch (error) {
         res.status(500).send(error)
+
     }
 })
 
