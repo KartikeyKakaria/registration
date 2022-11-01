@@ -104,16 +104,16 @@ app.post("/login", async(req, res) => {
         const result = await User.findOne({ email: email });
         const isMatch = await bcrypt.compare(password, result.password);
 
-        const token = await result.generateAuthToken()
-            // console.log(token)
+        // console.log(token)
 
-        res.cookie("jwt", result.tokens[0].token, {
-            expires: new Date(Date.now() + 2628002880),
-        });
-
-        console.log("The cookie is " + req.cookies.jwt)
 
         if (isMatch) {
+            const token = await result.generateAuthToken()
+            res.cookie("jwt", result.tokens[0].token, {
+                expires: new Date(Date.now() + 2628002880),
+            });
+
+            console.log("The cookie is " + req.cookies.jwt)
             res.status(200).send("valid yay")
         } else {
             res.status(400).send("invalid credentials");
