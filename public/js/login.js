@@ -1,4 +1,5 @@
 window.onload = async() => {
+    updateNavbar();
     const loggedIn = await cookieExists();
     if (loggedIn) {
         window.location.href = "/user";

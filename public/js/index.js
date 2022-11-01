@@ -1,4 +1,4 @@
-window.onload = () => {
+const updateNavbar = () => {
     const loginlink = document.getElementById("login")
     const userlink = document.getElementById("user")
     const logoutlink = document.getElementById("logout")
@@ -27,7 +27,6 @@ window.onload = () => {
             }
         })
         .catch(err => console.error(err))
-
 }
 const cookieExists = function() {
     const params = {
