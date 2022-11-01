@@ -12,4 +12,4 @@
 ### 5.cookie-parser
 ### 6.dotenv (Optional, only used for managing .env files to store non-shareable data)
 
-##And also just make a .env file to store your jwt token password and if you want, ten port of your server
+## And also just make a .env file to store your jwt token password and if you want, ten port of your server
